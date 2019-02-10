@@ -10,7 +10,7 @@ def index():
 
 @app.route('/add', methods=['GET', 'POST'])
 def add():
-    form = EditQuestionForm()
+    form = AddQuestionForm()
     if form.validate_on_submit():
         # add the question to the database
         print('validated')
@@ -22,9 +22,9 @@ def add():
         db.session.commit()
         flash('Question added')
         question_id = question.id
-        return redirect(url_for('display_question'))
+        return redirect(url_for('display_question', question_id=question.id))
     print('not validated')
-    return render_template('edit_question.html', form=form)
+    return render_template('add_question.html', form=form)
 
 
 @app.route('/edit/<question_id>', methods=['GET', 'POST'])
@@ -32,10 +32,21 @@ def edit(question_id):
     form = EditQuestionForm()
     # fetch the question from the database
     question = Question.query.filter_by(id=question_id).first_or_404()
-    form.question = question.question
-    form.answer = question.answer
-    form.topic = question.topic
-    form.subtopic = question.subtopic
+
+    if form.validate_on_submit():
+        question.question = form.question.data
+        question.answer = form.answer.data
+        question.topic = form.topic.data
+        question.subtopic = form.subtopic.data
+        db.session.add(question)
+        db.session.commit()
+        flash('Question updated')
+        return redirect(url_for('display_question', question_id=question.id))
+    elif request.method == 'GET':
+        form.question.data = question.question
+        form.answer.data = question.answer
+        form.topic.data = question.topic
+        form.subtopic.data = question.subtopic
     return render_template('edit_question.html', form=form, question_id=question_id)
 
 @app.route('/question', methods=['GET'])
