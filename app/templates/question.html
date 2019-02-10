@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block question %}
+
+<div class="container">
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-info" role="alert">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+    {% endwith %}
+</div>
+<table class="table">
+    <tr>
+        <td>Question {{ question.id }}: {{ question.question }}</td>
+    </tr>
+    <tr>
+        <td>Answer: {{ question.answer }}</td>
+    </tr>
+    </table>
+<a href="{{ url_for('edit', question_id=question.id) }}">Edit this question</a>
+{% endblock %}

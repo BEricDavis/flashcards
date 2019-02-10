@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% if questions %}
+    There are {{ questions }} in the database.
+{% else %}
+    The Questions database is empty.<br>
+    <a href=" {{ url_for('add') }}">Add the first question</a>
+{% endif %}
+<a href=" {{ url_for('display_question') }}">Click to start</a>
+{% endblock %}

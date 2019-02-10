@@ -1,0 +1,5 @@
+/.vscode
+.swp
+/venv
+/logs
+app.db
