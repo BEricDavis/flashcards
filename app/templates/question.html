@@ -2,6 +2,7 @@
 
 {% block question %}
 
+
 <div class="container">
     {% with messages = get_flashed_messages() %}
     {% if messages %}
@@ -16,8 +17,21 @@
         <td>Question {{ question.id }}: {{ question.question }}</td>
     </tr>
     <tr>
-        <td>Answer: {{ question.answer }}</td>
+        <td><button onclick="show()">Show Answer</button></td>
     </tr>
-    </table>
-<a href="{{ url_for('edit', question_id=question.id) }}">Edit this question</a>
+    <tr>
+        <td><div id="answer" class="answer" style="display:none">Answer: {{ question.answer }}</div></td>
+    </tr>
+</table>
+<br>
+    <form action=" {{ url_for('edit', question_id=question.id) }}">
+            <button type="submit" value="Edit this question" >Edit this question</button>
+            </form>
+
+<form action=" {{ url_for('add') }}">
+<button type="submit">
+        Add a new question
+    </button>
+</form>
+
 {% endblock %}

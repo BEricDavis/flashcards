@@ -56,7 +56,7 @@ def display_question(question_id=None):
     if question_id is None: 
         question_count = db.session.query(Question).count()
         print('question_count: {}'.format(question_count))
-        question_id = random.randint(1,question_count+1)
+        question_id = random.randint(1,question_count)
     print('question_id={}'.format(question_id))
     question = Question.query.filter_by(id=question_id).first_or_404()
     print(question)
