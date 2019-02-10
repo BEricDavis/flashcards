@@ -6,14 +6,14 @@ import random
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    return render_template('start.html')
+    question_count = db.session.query(Question).count()
+    return render_template('start.html', question_count=question_count)
 
 @app.route('/add', methods=['GET', 'POST'])
 def add():
     form = AddQuestionForm()
     if form.validate_on_submit():
         # add the question to the database
-        print('validated')
         question = Question(question=form.question.data,
                             answer=form.answer.data,
                             topic=form.topic.data,
@@ -23,7 +23,6 @@ def add():
         flash('Question added')
         question_id = question.id
         return redirect(url_for('display_question', question_id=question.id))
-    print('not validated')
     return render_template('add_question.html', form=form)
 
 
@@ -52,14 +51,11 @@ def edit(question_id):
 @app.route('/question', methods=['GET'])
 @app.route('/question/<question_id>', methods=['GET'])
 def display_question(question_id=None):
-    # get the number of rows in the questions table
+    # if no question_id is supplied, get the number of rows in the questions table
     if question_id is None: 
         question_count = db.session.query(Question).count()
-        print('question_count: {}'.format(question_count))
         question_id = random.randint(1,question_count)
-    print('question_id={}'.format(question_id))
     question = Question.query.filter_by(id=question_id).first_or_404()
-    print(question)
     return render_template('question.html', question=question)
 
 

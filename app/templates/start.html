@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 
 {% block content %}
-{% if questions %}
-    There are {{ questions }} in the database.
+{% if question_count %}
+    There are {{ question_count }} questions in the database.<br>
 {% else %}
     The Questions database is empty.<br>
     <a href=" {{ url_for('add') }}">Add the first question</a>
