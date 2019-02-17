@@ -5,11 +5,11 @@
 <table>
     <thead>
         <tr>
-            <td>ID</td>
-            <td>Question</td>
-            <td>Answer</td>
-            <td>Topic</td>
-            <td>Subtopic</td>
+            <th>ID</th>
+            <th>Question</th>
+            <th>Answer</th>
+            <th>Topic</th>
+            <th>Subtopic</th>
         </tr>
     </thead>
 
@@ -17,18 +17,34 @@
 <tr>
     <td><a href="{{ url_for('edit', question_id=question.id) }}">{{ question.id }}</a></td>
     <td><a href="{{ url_for('edit', question_id=question.id) }}">{{ question.question }}</a></td>
-    <td><a href="{{ url_for('edit', question_id=question.id) }}">{{ question.answer }}</a></td>
+    <td style="white-space: pre-wrap">{{ question.answer }}</td>
     <td>{{ question.topic }}</a></td>
     <td>{{ question.subtopic }}</a></td>
 </tr>
 {% endfor %}
 
 </table>
-{% if prev_url %}
-<a href="{{ prev_url }}">Back</a>
-{% endif %}
-{% if next_url %}
-<a href="{{ next_url }}">Next</a>
-{% endif %}
+<table style="vertical-align: middle";>
+    <tr>
+        <td style="border: none";>
+            {% if prev_url %}
+            <!-- <form action="http://localhost:5000{{ prev_url }}">
+                <button type="submit">Back</button>
+            </form> -->
+            &nbsp;<a href="{{ prev_url }}">Back</a>
+            
+            {% endif %}
+        </td>
+        <td style="border: none";>
+            {% if next_url %}
+            <!-- <form action="http://localhost:5000{{ next_url }}">
+                <button type="submit">Next</button>
+            </form> -->
+            &nbsp;<a href="{{ next_url }}">Next</a>
+            {% endif %}
+        </td>
+    </tr>
+</table>
+
 
 {% endblock %}
