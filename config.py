@@ -7,3 +7,4 @@ class Config(object):
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
     SECRET_KEY = os.environ.get('SECRET_KEY', 'ASDFGHJKL')
+    QUESTIONS_PER_PAGE = os.environ.get('QUESTIONS_PER_PAGE', 20)

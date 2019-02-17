@@ -59,3 +59,16 @@ def display_question(question_id=None):
     return render_template('question.html', question=question)
 
 
+@app.route('/list', methods=['GET'])
+def list_questions():
+    page = request.args.get('page', 1, type=int)
+
+    questions = Question.query.order_by(Question.id.asc()).paginate(
+        page, app.config['QUESTIONS_PER_PAGE'], False
+    )
+    next_url = url_for('list_questions', page=questions.next_num if questions.has_next else None)
+    prev_url = url_for('list_questions', page=questions.prev_num if questions.has_next else None)
+
+    return render_template('question_list.html', title='Question List', questions=questions.items,
+                            next_url=next_url, prev_url=prev_url)
+
