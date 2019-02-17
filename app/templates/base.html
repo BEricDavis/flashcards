@@ -10,13 +10,38 @@
                             answer.style.display = "none";
                         }
                     }
-                </script>
+            </script>
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 
     </head>
-    {% block content %}
+<body>
 
-    {% endblock %}
+
+<nav class="navbar navbar-expand navbar-dark bg-dark">
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('display_question') }}">Ask me a question</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('add') }}">Add a new question</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('list_questions') }}">List questions</a>
+        </li>
+    </ul>
+
+</nav>
+
+
+<div>
+{% block content %}
+
+{% endblock %}
+</div>
 {% block question %}
 
 {%  endblock %}
+
+</body>
 </html>
